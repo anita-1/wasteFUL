@@ -1,0 +1,12 @@
+{
+  "name": "wasteFUL",
+  "displayName": "wasteFUL",
+  "expo": {
+    "name": "wasteFUL",
+    "slug": "wasteFUL",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
