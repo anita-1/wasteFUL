@@ -13,11 +13,11 @@ export default function Square() {
 
 const styles = StyleSheet.create({
     square: {
-        width: 100,
-        height: 100,
+        width: 90,
+        height: 90,
         margin: 5,
     },
-    
+
     bkgndStyle: {
         flex: 1,
         width: '100%',
