@@ -50,7 +50,7 @@ export default function StatisticsPage(count) {
                 width: 200,
                 height: 50,
                 borderColor: 'black',
-                borderWidth: '2',
+                borderWidth: 2,
             }}>
                 <Text>{data}</Text>
             </View>
