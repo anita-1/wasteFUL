@@ -47,7 +47,7 @@ export default function StatisticsPage(count) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 margin: 5,
-                width: 200,
+                width: 350,
                 height: 50,
                 borderColor: 'black',
                 borderWidth: 2,
@@ -69,7 +69,7 @@ export default function StatisticsPage(count) {
             <View style={styles.barsStyle}>
                 <View 
                     style={{
-                        alignItems: 'flex-start',
+                        alignItems: 'center',
                         justifyContent: 'center',
                     }}>
                     <Text>Needs to get total waste count from game page. 
