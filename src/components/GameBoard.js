@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { StyleSheet, Button, Text, View, TouchableOpacity, TextComponent } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler';
 import Square from './Square'
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 export default function GameBoard() {
@@ -30,6 +31,16 @@ export default function GameBoard() {
     const addCount = () => {
         setCount(count + 2)
         setWasteCount(wasteCount + 1)
+        const storeCount = async () => {
+            const modWasteCount = wasteCount + 1
+            const wasteString = ' ' + modWasteCount
+            console.log('WASTESTRING', wasteString)
+            await AsyncStorage.setItem('countKey', wasteString)
+            .catch(e => console.log(e))
+            
+        }
+        storeCount()
+        console.log('here')
     }
     
     const subCount = () => {

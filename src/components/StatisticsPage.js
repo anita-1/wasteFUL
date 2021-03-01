@@ -1,47 +1,63 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NativeViewGestureHandler } from 'react-native-gesture-handler';
 
-export default function StatisticsPage(count) {
+export default function StatisticsPage() {
     const [arr, setArr] = useState([])
-    const [data, setData] = useState(0)
-
-
+    const [data, setData] = useState()
+    //const [pageState, setPageState] = useState()
+ 
+    //setPageState('new')
     //console.log('\nSTART:\n', count.count)
 
     useEffect(() => {
-
-        // const getNewArray = async () => {
-        //     await AsyncStorage.getItem('arrKey').then(result => {
-        //         //make resultArr using comma as delimiter
-        //         const resultArr = result.split(',')
-        //         console.log('RESULTARR', resultArr)
-        //     }).then(result => {
-        //         console.log("DATA BEFORE SET", data)
-        //         setData(count.count)
-        //         console.log('DATA AFTER SET', data)
-        //         const newArr = [...arr, data]
-        //         console.log('NEWARR', newArr)
-        //         const newArrString = newArr.toString()
-        //         const storeArray = async () => {
-        //             await AsyncStorage.setItem('arrKey', newArrString)
-        //             .catch(e => console.log(e))
-        //             console.log('NEWARRSTRING', newArrString)
-        //         }
-        //     }).catch(e => console.log(e))
-        // }
-        // getNewArray()
-        
-        setArr(<DataElement/>)
+        const getNewArray = async () => {
+            await AsyncStorage.getItem('arrKey')
+            .then(result => {
+                //make resultArr using comma as delimiter
+                if(result && result.data)
+                {
+                    const resultArr = result?.split(',')
+                    console.log('RESULTARR1', resultArr)
+                    setArr(resultArr)
+                }else{
+                    const resultArr = []
+                    console.log('RESULTARR2', resultArr)
+                    setArr(resultArr)
+                }
+                
+                const dataElement = Array(1).fill(<DataElement />)
+                const newArr = [...arr, ...dataElement]
+                console.log('arr',  arr.toString())
+                setArr(newArr)
+                console.log('newArr', newArr)
+                const newArrString = newArr.toString()
+                console.log('NEWARRSTRING', newArrString)
+                const setArray = async () => {
+                    await AsyncStorage.setItem('arrkey', newArrString)
+                    // .then(result => setArr())
+                    .catch(e => console.log(e))
+                }
+                setArray()
+                }
+            ).catch(e => console.log(e))
+        }
+        getNewArray()
     }, [])
 
-    useEffect(() => {
-
-    }, [])
-
-    
 
     const DataElement = () => {
+        const getCount = async () => {
+            await AsyncStorage.getItem('countKey')
+            .then(result => {
+                setData(result)
+                console.log('RESULT', result)
+            }).catch(e => console.log(e))
+        }
+
+        getCount()
+
         return (
             <View style={{
                 alignItems: 'center',
@@ -52,7 +68,7 @@ export default function StatisticsPage(count) {
                 borderColor: 'black',
                 borderWidth: 2,
             }}>
-                <Text>{data}</Text>
+                <Text>{data?.data}</Text>
             </View>
         )
     }
@@ -64,6 +80,7 @@ export default function StatisticsPage(count) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingTop: 50,
+                paddingBottom: 50,
         }}>
             <Text style={{fontSize: 20, color: 'blue', fontWeight: 'bold'}}>Saved Statistics</Text>
             <View style={styles.barsStyle}>
